@@ -23,4 +23,8 @@ public class Snowtam_decode extends Snowtam {
         this.braking_action=braking_action;
         this.taxiways=taxiways;
     }
+
+    public void decode(){
+
+    }
 }

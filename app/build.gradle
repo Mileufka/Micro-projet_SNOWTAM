@@ -27,4 +27,9 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     implementation files('libs/jsoup-1.11.2.jar')
     compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile project(':volley')
+}
+
+repositories {
+    jcenter()
 }
