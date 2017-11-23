@@ -14,6 +14,17 @@ public class Snowtam {
     protected String date_next;
     protected String informations;
 
+    public Snowtam(){
+        this.raw_data=null;
+        icao=null;
+        date_last=null;
+        runway=new ArrayList<>();
+        date_next=null;
+        informations=null;
+
+
+    }
+
     public Snowtam(String raw_data){
         this.raw_data=raw_data;
         icao=null;

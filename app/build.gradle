@@ -16,6 +16,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    buildToolsVersion '26.0.2'
 }
 
 dependencies {
@@ -27,7 +28,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     implementation files('libs/jsoup-1.11.2.jar')
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile project(':volley')
+    compile 'com.android.volley:volley:1.0.0'
 }
 
 repositories {

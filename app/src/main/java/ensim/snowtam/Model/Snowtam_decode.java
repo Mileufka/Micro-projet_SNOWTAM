@@ -11,7 +11,7 @@ public class Snowtam_decode extends Snowtam {
     private String mean_depth;
     private String braking_action;
     private String taxiways;
-
+/*
     public Snowtam_decode(){
 
     }
@@ -27,4 +27,5 @@ public class Snowtam_decode extends Snowtam {
     public void decode(){
 
     }
+    */
 }
