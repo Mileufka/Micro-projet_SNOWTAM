@@ -18,52 +18,64 @@ import com.android.volley.toolbox.StringRequest;
  */
 
 public class HTTPRequester{
-    //private static final byte offset=(byte)163;
-    private String icao;
-    private String url;
     private Context context;
+    private RequestQueue queue;
+    private Cache cache;
+    private Network network;
+    private String page_data;
+    private String url_01;
 
-    public HTTPRequester(String icao,String url,Context context){
-        this.icao=icao;
-        this.icao.toUpperCase();
-        url="https://v4p4sz5ijk.execute-api.us-east-1.amazonaws.com/anbdata/states/notams/notams-list?api_key=02417010-cde4-11e7-8f3f-ab5c0412d795&format=json&type=&Qcode=&locations=####&qstring=&states=&ICAOonly=";
-        url.replace("####",icao);
-        //url=new StringBuilder(url).insert(offset,icao).toString();
+    private static final String _url="https://v4p4sz5ijk.execute-api.us-east-1.amazonaws.com/anbdata/states/notams/notams-list?api_key=02417010-cde4-11e7-8f3f-ab5c0412d795&format=json&type=&Qcode=&locations=####&qstring=&states=&ICAOonly=";
+
+    public HTTPRequester(Context context){
         this.context=context;
+        this.queue=null;
+        this.cache=null;
+        this.network=null;
+        this.page_data=null;
     }
 
-    public void doRequest(){
-        RequestQueue queue;
+    public void addRequest(String icao){
+        icao=icao.toUpperCase();
+        String url=_url.replace("####",icao);
+        url_01=url;
+
         // Instantiate the cache
-        Cache cache = new DiskBasedCache(context.getCacheDir(), 1024 * 1024); // 1MB cap
+        this.cache = new DiskBasedCache(context.getCacheDir(), 1024 * 1024); // 1MB cap
 
         // Set up the network to use HttpURLConnection as the HTTP client.
-        Network network = new BasicNetwork(new HurlStack());
+        this.network = new BasicNetwork(new HurlStack());
 
         // Instantiate the RequestQueue with the cache and network.
-        queue = new RequestQueue(cache,network);
+        this.queue = new RequestQueue(cache,network);
 
         // Start the queue
-        queue.start();
+        this.queue.start();
 
         // Formulate the request and handle the response.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, this.url,
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
         new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                // Do something with the response
+                page_data=response;
             }
         },
         new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                // Handle error
+                page_data="Error";
             }
         });
 
         // Add the request to the RequestQueue.
         queue.add(stringRequest);
-
     }
 
+    public String get_page(){
+        return(page_data);
+    }
+
+    public String get_url(){
+        return(url_01);
+    }
 }
